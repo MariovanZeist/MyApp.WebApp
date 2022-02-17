@@ -2,7 +2,7 @@
 
 namespace Mvz.RazorServices
 {
-    public class PdfBuilder : IPdfBuilder
+	public class PdfBuilder : IPdfBuilder
 	{
 		public Stream CreatePdfStream(string html)
 		{

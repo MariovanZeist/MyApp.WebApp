@@ -1,6 +1,6 @@
 ﻿namespace MyApp.Models
 {
-    public class InvoiceLineMdl
+	public class InvoiceLineMdl
 	{
 		public int Id { get; set; }
 		public int InvoiceId { get; set; }

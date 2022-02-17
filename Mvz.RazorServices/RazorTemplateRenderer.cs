@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Mvz.RazorServices
 {
-    public class RazorTemplateRenderer : IRazorTemplateRenderer
+	public class RazorTemplateRenderer : IRazorTemplateRenderer
 	{
 		private readonly IServiceProvider _serviceProvider;
 		private readonly IRazorViewEngine _viewEngine;
