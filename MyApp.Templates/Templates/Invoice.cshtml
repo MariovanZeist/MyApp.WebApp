@@ -1,0 +1,95 @@
+﻿@using MyApp.Models
+@using MyApp.Templates
+@model MyApp.Models.InvoiceMdl
+@{
+    Layout = "~/Templates/Shared/_InvoiceLayout.cshtml";
+}
+<div id="paper">
+    <div id="logo">
+        @if (!string.IsNullOrEmpty(Model.CompanyLogo))
+        {
+            <img src="@TemplateHelper.BuildImageSource(Model.CompanyLogo)" />
+        }
+    </div>
+    <div id="bedrijfsgegevens">
+        <p id="bedrijfsnaam"><strong style="border-bottom: 3px ">@Model.Name</strong></p>
+        <p class="adres">@Model.Address</p>
+        <p class="adres">@Model.ZipCode @Model.City</p>
+    </div>
+    <table id="klant-adres">
+        <tr><td>@Model.Name</td></tr>
+        <tr><td>@Model.Address</td></tr>
+        <tr><td>@Model.ZipCode @Model.City</td></tr>
+    </table>
+    <table id="invoice">
+        <thead>
+            <tr>
+                <th id="invoicenr" colspan="2">FACTUUR</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Factuurnummer:</td>
+            <td>@Model.InvoiceNr</td>
+        </tr>
+        <tr>
+            <td>Factuurdatum:</td>
+            <td>@Model.InvoiceDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Vervaldatum:</td>
+            <td>@Model.DueDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Klantnummer:</td>
+            <td>@Model.DebtorNr.Trim()</td>
+        </tr>
+    </table>
+    <div id="rowswrap">
+        <table id="rows">
+            <thead>
+                <tr>
+                    <th>OMSCHRIJVING</th>
+                    <th>AANTAL</th>
+                    <th class="textalign-right">BEDRAG</th>
+                    <th class="textalign-center">BTW</th>
+                    <th class="textalign-right">TOTAAL EXCL.</th>
+                </tr>
+            </thead>
+            <tbody id="invoicerow">
+                @foreach (var item in Model.Invoicelines)
+                {
+
+                <tr>
+                    <td width="580">@item.Description</td>
+                    <td width="65">@item.Quantity.ToString("0.##")</td>
+                    <td width="115" class="textalign-right">@item.AmountEx.ToString("C")</td>
+                    <td width="65" class="textalign-center">Removed</td>
+                    <td width="115" class="textalign-right">@item.LineTotalEx.ToString("C")</td>
+                </tr>
+
+                }
+            </tbody>
+            <tbody id="subtotal">
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2" class="textalign-right">Totaal excl. BTW</td>
+                    <td class="textalign-right">@Model.TotalExVat.ToString("C")</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="vatwrap">
+            <table id="vat">
+                <thead>
+                    <tr>
+                        <th class="textalign-right">BTW %</th>
+                        <th class="textalign-right">BTW-grondslag</th>
+                        <th class="textalign-right">BTW-bedrag</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+        <div id="footer">Gelieve te betalen voor @Model.DueDate.ToShortDateString() door overmaking op rek. nr. Fake number o.v.v. factuurnummer @Model.InvoiceNr</div>
+	</div>
+</div>
